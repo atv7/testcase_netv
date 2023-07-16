@@ -3,7 +3,7 @@ version: "3.8"
 services:
   main.py:
     build:
-      context: ./   # Точка означает текущую директорию, где находится docker-compose.yaml
+      context: ./   
       dockerfile: app1dockerfile
     ports:
       - "8000:8000"
@@ -12,7 +12,7 @@ services:
 
   client_app.py:
     build:
-      context: ./   # Точка означает текущую директорию, где находится docker-compose.yaml
+      context: ./   
       dockerfile: app2dockerfile
     ports:
       - "8080:8080"
@@ -20,7 +20,7 @@ services:
       - main.py
 
   db:
-    image: "alpine"  # Используем образ Alpine Linux
-    command: sh -c "while sleep 3600; do :; done"  # Запускаем команду, чтобы контейнер не завершался
+    image: "alpine"  
+    command: sh -c "while sleep 3600; do :; done"  
     volumes:
-      - ./uuid.db:/app/uuid.db  # Монтируем базу данных SQLite
+      - ./uuid.db:/app/uuid.db  
