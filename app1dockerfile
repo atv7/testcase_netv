@@ -1,0 +1,24 @@
+# Определение базового образа
+FROM python:3.10
+
+# Установка переменной окружения PYTHONUNBUFFERED для более предсказуемого вывода логов
+ENV PYTHONUNBUFFERED 1
+
+# Установка рабочей директории внутри образа
+WORKDIR /app
+
+# Копирование всех файлов, необходимых для установки зависимостей
+COPY requirements.txt .
+
+# Установка зависимостей
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копирование всех файлов приложения
+COPY main.py .
+COPY models.py .
+COPY database.py .
+COPY routers/uuid_router.py routers/uuid_router.py
+COPY uuid.db .
+
+# Команда, которая будет выполнена при запуске контейнера на основе этого образа
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
